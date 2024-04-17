@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Visualización Data
+{% endblock %}
+
+{% block content %}
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8"> <!-- Ampliar el tamaño del contenedor -->
+                <div class="card" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div class="card-header">
+                        <h3 class="text-center">Visualizar Data</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center"> <!-- Utilizar una fila adicional para los botones -->
+                            <div class="col-md-5"> <!-- Dividir la fila en dos columnas -->
+                                <div class="text-center mb-3"> <!-- Añadir margen inferior -->
+                                    <a href="{% url 'visualizar_horas_extras' %}" class="btn btn-custom btn-lg btn-square">Visualización de Horas Extras</a> <!-- Añadir clase 'btn-square' -->
+                                </div>
+                                <div class="text-center">
+                                    <a href="{% url 'visualizar_disponibilidad' %}" class="btn btn-custom btn-lg btn-square">Visualización de Disponibilidad</a> <!-- Añadir clase 'btn-square' -->
+                                </div>
+                            </div>
+                            <div class="col-md-5"> <!-- Dividir la fila en dos columnas -->
+                                <div class="text-center mb-3"> <!-- Añadir margen inferior -->
+                                    <a href="{% url 'visualizar_horas_compensadas' %}" class="btn btn-custom btn-lg btn-square">Visualización de Horas Compensadas</a> <!-- Añadir clase 'btn-square' -->
+                                </div>
+                                <div class="text-center">
+                                    <a href="{% url 'visualizar_provisiones' %}" class="btn btn-custom-2 btn-lg btn-square">Visualización de Provisiones</a> <!-- Añadir clase 'btn-square' -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+{% endblock %}
+

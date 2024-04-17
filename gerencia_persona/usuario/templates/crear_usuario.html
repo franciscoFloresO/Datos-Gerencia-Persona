@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Crear Usuario
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div class="card-header">
+                        <h3 class="text-center">Crear Usuario</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="nombre" style="margin-bottom: 5px;">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" style="margin-bottom: 5px;">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" style="margin-bottom: 5px;">Contraseña:</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pais" style="margin-bottom: 5px;">País:</label>
+                                <select class="form-control" id="pais" name="pais" required>
+                                    <option value="Chile">Chile</option>
+                                    <option value="Perú">Perú</option>
+                                    <option value="Argentina">Argentina</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="is_staff"style="margin-left: 5px;" >Administrador</label>
+                                <input type="checkbox" id="is_staff" name="is_staff" style="margin-left: 5px;">
+                            </div>
+                            <br>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary">Crear Usuario</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

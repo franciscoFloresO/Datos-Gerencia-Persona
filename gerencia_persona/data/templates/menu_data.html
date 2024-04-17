@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Menú Data
+{% endblock %}
+
+{% block content %}
+
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div class="card-header">
+                        <h3 class="text-center">Menú Data</h3>
+                    </div>
+                    <div id="spinnerContainer" style="position: relative; top: 0; margin-left: 20px; background-color:rgba(255, 255, 255, 0.5);">
+                        <div class="spinner-overlay d-none">
+                            <div class="d-flex justify-content-center">    
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                        Cargar Horas Extras
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <form id="uploadForm" method="post" enctype="multipart/form-data"  action="{% url 'cargar_horas_extras' %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="pais_horas_extras">País</label>
+                                                <select class="form-control selectControl" id="pais_horas_extras" name="pais_horas_extras">
+                                                    <option selected disabled>Seleccione un País</option>
+                                                    {% for pais in paises %}
+                                                        <option value="{{ pais }}">{{ pais }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="year_horas_extras">Año</label>
+                                                <select class="form-control selectControl" id="year_horas_extras" name="year_horas_extras" >
+                                                    <option selected disabled>Seleccione un Año</option>
+                                                    {% for year in years %}
+                                                        <option value="{{ year }}">{{ year }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mes_horas_extras">Mes</label>
+                                                <select class="form-control selectControl" id="mes_horas_extras" name="mes_horas_extras" >
+                                                    <option selected disabled>Seleccione un Mes</option>
+                                                    {% for mes in meses %}
+                                                        <option value="{{ mes }}">{{ mes }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="input-group mb-3" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                                <input type="file" id="excelFile" name="excelFile" accept=".xls,.xlsx" class="form-control">
+                                            </div>
+                                            <button class="btn btn-outline-primary" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);" type="submit">Subir Horas Extras</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+<!-- CARGA PROVISIONES -->
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Cargar Provisiones
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <form id="uploadForm_p" method="post" enctype="multipart/form-data" action="{% url 'cargar_provisiones' %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="pais_provisiones">País</label>
+                                                <select class="form-control selectControl" id="pais_provisiones" name="pais_provisiones" >
+                                                    {% for pais in paises %}
+                                                        <option value="{{ pais }}">{{ pais }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="year_provisiones">Año</label>
+                                                <select class="form-control selectControl" id="year_provisiones" name="year_provisiones" >
+                                                    <option selected disabled>Seleccione un Año</option>
+                                                    {% for year in years %}
+                                                        <option value="{{ year }}">{{ year }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mes_provisiones">Mes</label>
+                                                <select class="form-control selectControl" id="mes_provisiones" name="mes_provisiones" >
+                                                    <option selected disabled>Seleccione un Mes</option>
+                                                    {% for mes in meses %}
+                                                        <option value="{{ mes }}">{{ mes }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="input-group mb-3" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                                                <input type="file" id="excelFile_p" name="archivo_provisiones" accept=".xls,.xlsx" class="form-control">
+                                            </div>
+                                            <button class="btn btn-outline-primary" type="submit" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">Subir Provisiones</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData();
+        var file = document.getElementById('excelFile').files[0];
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');  
+        formData.append('excelFile', file);
+        formData.append('mes_horas_extras', document.getElementById('mes_horas_extras').value);
+        formData.append('year_horas_extras', document.getElementById('year_horas_extras').value);
+        formData.append('pais_horas_extras', document.getElementById('pais_horas_extras').value);
+        
+        // Mostrar el spinner
+        document.querySelector('.spinner-overlay').classList.remove('d-none');
+
+        fetch("{% url 'cargar_horas_extras' %}", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al cargar el archivo.');
+            }
+            return response.json(); 
+        })
+        .then(data => {
+            console.log('Datos recibidos:', data);
+            var mensajeHTML = ''; // Inicializamos la variable para almacenar los mensajes
+            // Verificamos si hay un mensaje de error
+            var hayError = data.mensajes.some(mensaje => mensaje.tipo === 'error');
+            if (hayError) {
+                var mensajeError = data.mensajes.find(mensaje => mensaje.tipo === 'error');
+                mensajeHTML = '<div class="error">' + mensajeError.mensaje + '</div>';
+            } else {
+                // Si no hay errores, buscamos si hay mensajes de éxito
+                var haySuccess = data.mensajes.some(mensaje => mensaje.tipo === 'success');
+                if (haySuccess) {
+                    var mensajeSuccess = data.mensajes.find(mensaje => mensaje.tipo === 'success');
+                    mensajeHTML = '<div class="success">' + mensajeSuccess.mensaje + '</div>';
+                }
+            }
+            document.getElementById('messages').innerHTML = mensajeHTML; // Mostramos el mensaje
+            if (hayError) {
+                setTimeout(function() {
+                    document.getElementById('messages').innerHTML = '';
+                }, 5000);
+            }
+            if (haySuccess) {
+                setTimeout(function() {
+                    document.getElementById('messages').innerHTML = '';
+                }, 5000);
+            }
+            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('status').innerHTML = "Se produjo un error al cargar el archivo.";
+        })
+        .finally(() => {
+            // Ocultar el spinner después de recibir la respuesta
+            document.querySelector('.spinner-overlay').classList.add('d-none');
+        });
+    });
+
+
+    document.getElementById('uploadForm_p').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData();
+        var file = document.getElementById('excelFile_p').files[0];
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');  
+        formData.append('excelFile_p', file);
+        formData.append('mes_provisiones', document.getElementById('mes_provisiones').value);
+        formData.append('year_provisiones', document.getElementById('year_provisiones').value);
+        formData.append('pais_provisiones', document.getElementById('pais_provisiones').value);
+        
+        // Mostrar el spinner
+        document.querySelector('.spinner-overlay').classList.remove('d-none');
+
+        fetch("{% url 'cargar_provisiones' %}", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al cargar el archivo.');
+            }
+            return response.json(); 
+        })
+        .then(data => {
+            console.log('Datos recibidos:', data);
+            var mensajeHTML = ''; // Inicializamos la variable para almacenar los mensajes
+            // Verificamos si hay un mensaje de error
+            var hayError = data.mensajes.some(mensaje => mensaje.tipo === 'error');
+            if (hayError) {
+                var mensajeError = data.mensajes.find(mensaje => mensaje.tipo === 'error');
+                mensajeHTML = '<div class="error">' + mensajeError.mensaje + '</div>';
+            } else {
+                // Si no hay errores, buscamos si hay mensajes de éxito
+                var haySuccess = data.mensajes.some(mensaje => mensaje.tipo === 'success');
+                if (haySuccess) {
+                    var mensajeSuccess = data.mensajes.find(mensaje => mensaje.tipo === 'success');
+                    mensajeHTML = '<div class="success">' + mensajeSuccess.mensaje + '</div>';
+                }
+            }
+            document.getElementById('messages').innerHTML = mensajeHTML; // Mostramos el mensaje
+            if (hayError) {
+                setTimeout(function() {
+                    document.getElementById('messages').innerHTML = '';
+                }, 5000);
+            }
+            if (haySuccess) {
+                setTimeout(function() {
+                    document.getElementById('messages').innerHTML = '';
+                }, 5000);
+            }
+            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('status').innerHTML = "Se produjo un error al cargar el archivo.";
+        })
+        .finally(() => {
+            // Ocultar el spinner después de recibir la respuesta
+            document.querySelector('.spinner-overlay').classList.add('d-none');
+        });
+    });
+</script>
+
+{% endblock %}

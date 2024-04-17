@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Provisiones
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 style="text-align: center;">Tabla de Provisiones</h2>
+    <hr>
+    <table class="table" id="tabla-provisiones" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); border-radius: 15px;">
+        <thead>
+            <tr>
+                <th>País</th>
+                <th><select id="year-select" style="border: none; padding: 5px; text-align: center; font-weight: bold;" onchange="filtrarTabla(1, this.value)">
+                    <option value="">Año</option>
+                    {% for year in years %}
+                        <option style="text-align: left;" value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select></th>
+                <th><select id="mes-select" style="border: none; padding: 5px; text-align: center; font-weight: bold;" onchange="filtrarTabla(2, this.value)">
+                    <option value="">Mes</option>
+                    {% for mes in meses %}
+                        <option style="text-align: left;" value="{{ mes }}">{{ mes }}</option>
+                    {% endfor %}
+                </select></th>
+                <th>Empresa</th>
+                <th>ID Sonda Plus</th>
+                <th>Número de Documento</th>
+                <th>Nombre</th>
+                <th>Primer Apellido</th>
+                <th>Segundo Apellido</th>
+                <th>Centro de Costos</th>
+                <th>Cantidad de Días</th>
+                <th>Saldo Monto</th>
+                <th>Moneda</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for provision in provisiones %}
+            <tr>
+                <td>{{ provision.pais }}</td>
+                <td>{{ provision.year }}</td>
+                <td>{{ provision.mes }}</td>
+                <td>{{ provision.empresa }}</td>
+                <td>{{ provision.id_sonda_plus }}</td>
+                <td>{{ provision.numero_documento }}</td>
+                <td>{{ provision.nombre }}</td>
+                <td>{{ provision.primer_apellido }}</td>
+                <td>{{ provision.segundo_apellido }}</td>
+                <td>{{ provision.centro_costos }}</td>
+                <td>{{ provision.cantidad_dias }}</td>
+                <td>{{ provision.saldo_monto }}</td>
+                <td>{{ provision.moneda }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    function filtrarTabla() {
+        var tabla = document.getElementById("tabla-provisiones");
+        var mesSeleccionado = document.getElementById("mes-select").value.toUpperCase();
+        var yearSeleccionado = document.getElementById("year-select").value.toUpperCase();
+
+        var filas = tabla.getElementsByTagName("tr");
+        for (var i = 0; i < filas.length; i++) {
+            var celdas = filas[i].getElementsByTagName("td");
+            if (celdas.length >= 4) { // Verifica si hay al menos 4 celdas en la fila
+                var year = celdas[1].textContent.toUpperCase();
+                var mes = celdas[2].textContent.toUpperCase(); // Índice 3 corresponde a la columna de mes
+                if ((yearSeleccionado === "" || year ===yearSeleccionado) && (mesSeleccionado === "" || mes === mesSeleccionado)) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Lista de Usuarios
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div class="card-header">
+                        <h3 class="text-center">Lista de Usuarios</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>País</th>
+                                    <th>Administrador</th> <!-- Nueva columna -->
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for usuario in usuarios %}
+                                <tr>
+                                    <td>{{ usuario.nombre }}</td>
+                                    <td>{{ usuario.email }}</td>
+                                    <td>{{ usuario.pais }}</td>
+                                    <td>{% if usuario.is_staff %} Sí {% else %} No {% endif %}</td> <!-- Nueva columna -->
+                                    <td>
+                                        <a href="{% url 'editar_usuario' usuario.id %}" class="btn btn-primary btn-sm">Editar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
